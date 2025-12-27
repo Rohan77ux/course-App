@@ -1,11 +1,11 @@
 import express, { json } from "express";
 const app = express();
 
-import courseRoutes from "./routes/Course";
-import profileRoutes from "./routes/Profile";
-import userRoutes from "./routes/User";
-import paymentsRoutes from "./routes/Payments";
-import contactUsRoute from "./routes/Contact";
+import courseRoutes from "./Routes/Course";
+import profileRoutes from "./Routes/Profile";
+import userRoutes from "./Routes/User";
+import paymentsRoutes from "./Routes/Payments";
+import contactUsRoute from "./Routes/Contact";
 import dotenv from "dotenv";
 dotenv.config();
 import { Connect } from "./config/database";
