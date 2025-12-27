@@ -1,24 +1,29 @@
-import express, { json } from "express";
+const express = require("express");
 const app = express();
 
-import courseRoutes from "./Routes/Course";
-import profileRoutes from "./Routes/Profile";
-import userRoutes from "./Routes/User";
-import paymentsRoutes from "./Routes/Payments";
-import contactUsRoute from "./Routes/Contact";
-import dotenv from "dotenv";
+// Route Imports
+const courseRoutes = require("./Routes/Course");
+const profileRoutes = require("./Routes/Profile");
+const userRoutes = require("./Routes/User");
+const paymentsRoutes = require("./Routes/Payments");
+const contactUsRoute = require("./Routes/Contact");
+
+const dotenv = require("dotenv");
 dotenv.config();
-import { Connect } from "./config/database";
-import cookieParser from "cookie-parser";
-import cors from "cors";
-import { cloudinaryConnect } from "./config/cloudinary";
-import fileUpload from "express-fileupload";
+
+const { Connect } = require("./config/database");
+const cookieParser = require("cookie-parser");
+const cors = require("cors");
+const { cloudinaryConnect } = require("./config/cloudinary");
+const fileUpload = require("express-fileupload");
 
 const PORT = process.env.PORT || 3005;
 
+// Database Connection
 Connect();
 
-app.use(json());
+// Middleware
+app.use(express.json());
 app.use(cookieParser());
 
 // Updated CORS configuration
@@ -38,8 +43,10 @@ app.use(
   })
 );
 
+// Cloudinary Connection
 cloudinaryConnect();
 
+// Routes
 app.use("/api/v1/auth", userRoutes);
 app.use("/api/v1/profile", profileRoutes);
 app.use("/api/v1/course", courseRoutes);
