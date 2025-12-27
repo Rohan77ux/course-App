@@ -1,7 +1,7 @@
 import express, { json } from "express";
 const app = express();
 
-import courseRoutes from "./routes/Course.js";
+import courseRoutes from "./routes/course.js";
 import profileRoutes from "./routes/Profile.js";
 import userRoutes from "./routes/User.js";
 import paymentsRoutes from "./routes/Payments.js";
@@ -24,10 +24,7 @@ app.use(cookieParser());
 // Updated CORS configuration
 app.use(
   cors({
-    origin: [
-      "https://studynotion-usara-amit.vercel.app",
-      "http://localhost:3000",
-    ],
+    origin: ["http://localhost:3000"],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
