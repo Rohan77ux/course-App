@@ -1,17 +1,17 @@
 import express, { json } from "express";
 const app = express();
 
-import courseRoutes from "./routes/Course.js";
-import profileRoutes from "./routes/Profile.js";
-import userRoutes from "./routes/User.js";
-import paymentsRoutes from "./routes/Payments.js";
-import contactUsRoute from "./routes/Contact.js";
+import courseRoutes from "./routes/Course";
+import profileRoutes from "./routes/Profile";
+import userRoutes from "./routes/User";
+import paymentsRoutes from "./routes/Payments";
+import contactUsRoute from "./routes/Contact";
 import dotenv from "dotenv";
 dotenv.config();
-import { Connect } from "./config/database.js";
+import { Connect } from "./config/database";
 import cookieParser from "cookie-parser";
 import cors from "cors";
-import { cloudinaryConnect } from "./config/cloudinary.js";
+import { cloudinaryConnect } from "./config/cloudinary";
 import fileUpload from "express-fileupload";
 
 const PORT = process.env.PORT || 3005;
