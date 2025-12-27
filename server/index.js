@@ -1,7 +1,7 @@
 import express, { json } from "express";
 const app = express();
 
-import courseRoutes from "./routes/course.js";
+import courseRoutes from "./routes/Course.js";
 import profileRoutes from "./routes/Profile.js";
 import userRoutes from "./routes/User.js";
 import paymentsRoutes from "./routes/Payments.js";
