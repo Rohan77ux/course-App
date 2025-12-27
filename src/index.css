@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+body,HTML{
+    overflow-x: hidden;
+}
+
+.text{
+    font-size: 10px;
+    font-weight: 500;
+}
