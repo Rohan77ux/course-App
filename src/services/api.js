@@ -56,12 +56,12 @@ export const ratingsEndpoints = {
 
 // CATAGORIES API
 export const categories = {
-  CATEGORIES_API: BASE_URL + "/category/showAllCategories",
+  CATEGORIES_API: BASE_URL + "/course/showAllCategories",
 };
 
 // CATALOG PAGE DATA
 export const catalogData = {
-  CATALOGPAGEDATA_API: BASE_URL + "/category/getCategoryPageDetails",
+  CATALOGPAGEDATA_API: BASE_URL + "/course/getCategoryPageDetails",
 };
 // CONTACT-US API
 export const contactusEndpoint = {
