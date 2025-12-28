@@ -1,40 +1,123 @@
+// const express = require("express");
+// const app = express();
+
+// // Route Imports
+// const courseRoutes = require("./Routes/Course");
+// const profileRoutes = require("./Routes/Profile");
+// const userRoutes = require("./Routes/User");
+// const paymentsRoutes = require("./Routes/Payments");
+// const contactUsRoute = require("./Routes/Contact");
+
+// const dotenv = require("dotenv");
+// dotenv.config();
+
+// const { Connect } = require("./config/database");
+// const cookieParser = require("cookie-parser");
+// const cors = require("cors");
+// const { cloudinaryConnect } = require("./config/cloudinary");
+// const fileUpload = require("express-fileupload");
+
+// const PORT = process.env.PORT || 3005;
+
+// // Database Connection
+// Connect();
+
+// // Middleware
+// app.use(express.json());
+// app.use(cookieParser());
+
+// // Updated CORS configuration
+// app.use(
+//   cors({
+//     origin: ["https://course-app-e7kc-7bh3qb3b5-rohans-projects-abace879.vercel.app/","http://localhost:3000","https://course-app-e7kc.vercel.app",],
+//     credentials: true,
+//     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+//     allowedHeaders: ["Content-Type", "Authorization"],
+//   })
+// );
+
+// app.use(
+//   fileUpload({
+//     useTempFiles: true,
+//     tempFileDir: "/tmp",
+//   })
+// );
+
+// // Cloudinary Connection
+// cloudinaryConnect();
+
+// // Routes
+// app.use("/api/v1/auth", userRoutes);
+// app.use("/api/v1/profile", profileRoutes);
+// app.use("/api/v1/course", courseRoutes);
+// app.use("/api/v1/payment", paymentsRoutes);
+// app.use("/api/v1/reach", contactUsRoute);
+
+// app.get("/", (req, res) => {
+//   return res.json({
+//     success: true,
+//     message: "Your server is up and running....",
+//   });
+// });
+
+
+
 const express = require("express");
 const app = express();
 
-// Route Imports
+const dotenv = require("dotenv");
+dotenv.config();
+
+// ===================== IMPORTS =====================
+const cookieParser = require("cookie-parser");
+const cors = require("cors");
+const fileUpload = require("express-fileupload");
+
+const { Connect } = require("./config/database");
+const { cloudinaryConnect } = require("./config/cloudinary");
+
+// Routes
 const courseRoutes = require("./Routes/Course");
 const profileRoutes = require("./Routes/Profile");
 const userRoutes = require("./Routes/User");
 const paymentsRoutes = require("./Routes/Payments");
 const contactUsRoute = require("./Routes/Contact");
 
-const dotenv = require("dotenv");
-dotenv.config();
-
-const { Connect } = require("./config/database");
-const cookieParser = require("cookie-parser");
-const cors = require("cors");
-const { cloudinaryConnect } = require("./config/cloudinary");
-const fileUpload = require("express-fileupload");
-
+// ===================== PORT =====================
 const PORT = process.env.PORT || 3005;
 
-// Database Connection
+// ===================== DATABASE =====================
 Connect();
 
-// Middleware
+// ===================== CORS (FINAL FIX) =====================
+const corsOptions = {
+  origin: function (origin, callback) {
+    // Allow Postman, server-to-server, etc.
+    if (!origin) return callback(null, true);
+
+    // Allow localhost
+    if (origin === "http://localhost:3000") {
+      return callback(null, true);
+    }
+
+    // Allow ALL Vercel preview + production URLs
+    if (origin.endsWith(".vercel.app")) {
+      return callback(null, true);
+    }
+
+    return callback(new Error("Not allowed by CORS"));
+  },
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+};
+
+// ===================== MIDDLEWARE (ORDER MATTERS) =====================
+app.use(cors(corsOptions));
+app.options("*", cors(corsOptions)); // 🔥 REQUIRED for preflight
+
 app.use(express.json());
 app.use(cookieParser());
-
-// Updated CORS configuration
-app.use(
-  cors({
-    origin: ["https://course-app-e7kc-7bh3qb3b5-rohans-projects-abace879.vercel.app/","http://localhost:3000","https://course-app-e7kc.vercel.app",],
-    credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-  })
-);
 
 app.use(
   fileUpload({
@@ -43,23 +126,30 @@ app.use(
   })
 );
 
-// Cloudinary Connection
+// ===================== CLOUDINARY =====================
 cloudinaryConnect();
 
-// Routes
+// ===================== ROUTES =====================
 app.use("/api/v1/auth", userRoutes);
 app.use("/api/v1/profile", profileRoutes);
 app.use("/api/v1/course", courseRoutes);
 app.use("/api/v1/payment", paymentsRoutes);
 app.use("/api/v1/reach", contactUsRoute);
 
+// ===================== DEFAULT ROUTE =====================
 app.get("/", (req, res) => {
-  return res.json({
+  res.json({
     success: true,
-    message: "Your server is up and running....",
+    message: "Your server is up and running 🚀",
   });
 });
 
+// ===================== SERVER =====================
 app.listen(PORT, () => {
-  console.log(`App is running at ${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });
+
+
+// app.listen(PORT, () => {
+//   console.log(`App is running at ${PORT}`);
+// });
