@@ -29,7 +29,7 @@ app.use(cookieParser());
 // Updated CORS configuration
 app.use(
   cors({
-    origin: ["https://course-app-e7kc-7bh3qb3b5-rohans-projects-abace879.vercel.app/","http://localhost:3000"],
+    origin: ["https://course-app-e7kc-7bh3qb3b5-rohans-projects-abace879.vercel.app/","http://localhost:3000","https://course-app-e7kc.vercel.app",],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
